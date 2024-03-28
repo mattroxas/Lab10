@@ -16,7 +16,7 @@ export const getProductDetails = async (id) => {
 // Fetches a list of all products
 export const fetchProducts = async () => {
     try {
-        const response = await axios.get(BASE_URL);
+        const response = await axios.get(`${BASE_URL}`);
         return response.data;
     } catch (error) {
         throw error; // Rethrow to allow caller to handle
@@ -35,12 +35,20 @@ export const searchProducts = async (query) => {
 
 // Adds a new product to the database
 export const addProduct = (product) => {
-    return axios.post(`${BASE_URL}/add`, JSON.stringify(product));
+    return axios.post(`${BASE_URL}/add`, product, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 };
 
 // Edits an existing product by ID
 export const editProduct = (id, product) => {
-    return axios.put(`${BASE_URL}/${id}`, JSON.stringify(product));
+    return axios.put(`${BASE_URL}/${id}`, product, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 };
 
 // Deletes a product by its ID

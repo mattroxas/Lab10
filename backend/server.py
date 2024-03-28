@@ -56,10 +56,9 @@ def update_product(product_id):
 @app.route('/products/<int:product_id>', methods=['DELETE'])
 def remove_product(product_id):
     products = load_products()
-    for product in products:
+    for index, product in enumerate(products):
         if product['id'] == product_id:
-            product['isDeleted'] = True
-            product['deletedOn'] = datetime.datetime.now().isoformat()
+            del products[index]  # Delete the product from the list
             save_products(products)
             return jsonify(product)
     return ('', 404)
